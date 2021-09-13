@@ -298,6 +298,7 @@ class CameraDeepArController {
       sendNative = Masks.values.indexOf(e);
     }
     if (p > Masks.values.length - 1) p = 0;
+    
     return channel.invokeMethod('changeMask', <String, dynamic>{
       'mask': sendNative,
     });
