@@ -55,6 +55,8 @@ class _MyAppState extends State<MyApp> {
                     "53618212114fc16bbd7499c0c04c2ca11a4eed188dc20ed62a7f7eec02b41cb34d638e72945a6bf6",
                 cameraDeepArCallback: (c) async {
                   cameraDeepArController = c;
+                 // cameraDeepArController.setCameraMode(camMode: CameraMode.effects);
+
                   setState(() {});
                 }),
             Align(
@@ -159,5 +161,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    cameraDeepArController.dispose();
+    super.dispose();
   }
 }

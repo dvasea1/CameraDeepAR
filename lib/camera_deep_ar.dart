@@ -110,6 +110,8 @@ class CameraDeepAr extends StatefulWidget {
         Effects.none,
         Effects.fire,
         Effects.heart,
+        Effects.blizzard,
+        Effects.rain,
       ]})
       : super(key: key);
 
