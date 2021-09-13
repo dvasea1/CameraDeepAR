@@ -12,7 +12,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  CameraDeepArController cameraDeepArController;
+  late CameraDeepArController cameraDeepArController;
   int currentPage = 0;
   final vp = PageController(viewportFraction: .24);
   Effects currentEffect = Effects.none;
