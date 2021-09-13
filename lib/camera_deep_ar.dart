@@ -89,10 +89,22 @@ class CameraDeepAr extends StatefulWidget {
         Masks.aviators,
         Masks.bigmouth,
         Masks.dalmatian,
+        Masks.bcgSeg,
         Masks.look2,
+        Masks.fatify,
         Masks.flowers,
         Masks.grumpycat,
+        Masks.koala,
         Masks.lion,
+        Masks.mudMask,
+        Masks.obama,
+        Masks.pug,
+        Masks.slash,
+        Masks.sleepingmask,
+        Masks.smallface,
+        Masks.teddycigar,
+        Masks.tripleface,
+        Masks.twistedFace,
       ],
       this.supportedEffects = const [
         Effects.none,
@@ -100,6 +112,7 @@ class CameraDeepAr extends StatefulWidget {
         Effects.heart,
       ]})
       : super(key: key);
+
   @override
   _CameraDeepArState createState() => _CameraDeepArState();
 }
@@ -107,8 +120,11 @@ class CameraDeepAr extends StatefulWidget {
 class _CameraDeepArState extends State<CameraDeepAr> {
   late CameraDeepArController _controller;
   bool hasPermission = false;
+
   List<Effects> get supportedEffects => widget.supportedEffects;
+
   List<Filters> get supportedFilters => widget.supportedFilters;
+
   List<Masks> get supportedMasks => widget.supportedMasks;
 
   @override
@@ -134,8 +150,8 @@ class _CameraDeepArState extends State<CameraDeepAr> {
   @override
   Widget build(BuildContext context) {
     final Map<String, Object> args = {
-      "androidLicenceKey": widget.androidLicenceKey ?? "",
-      "iosLicenceKey": widget.iosLicenceKey ?? "",
+      "androidLicenceKey": widget.androidLicenceKey,
+      "iosLicenceKey": widget.iosLicenceKey,
       "recordingMode": RecordingMode.values.indexOf(widget.recordingMode),
       "direction": CameraDirection.values.indexOf(widget.cameraDirection),
       "cameraMode": CameraMode.values.indexOf(widget.cameraMode)
@@ -201,8 +217,7 @@ class CameraDeepArController {
     _CameraDeepArState _cameraDeepArState,
   ) async {
     assert(id != null);
-    final MethodChannel channel =
-        MethodChannel('plugins.flutter.io/deep_ar_camera/$id');
+    final MethodChannel channel = MethodChannel('plugins.flutter.io/deep_ar_camera/$id');
     String resp = await channel.invokeMethod('isCameraReady');
     print("Camera Status $resp");
     return CameraDeepArController._(
@@ -298,7 +313,7 @@ class CameraDeepArController {
       sendNative = Masks.values.indexOf(e);
     }
     if (p > Masks.values.length - 1) p = 0;
-    
+
     return channel.invokeMethod('changeMask', <String, dynamic>{
       'mask': sendNative,
     });
