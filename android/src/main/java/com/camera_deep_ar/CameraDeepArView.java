@@ -87,7 +87,7 @@ public class CameraDeepArView implements PlatformView,
     private int cameraDevice = defaultCameraDevice;
     private DeepAR deepAR;
 
-    private int currentMask = 0;
+    private String currentMask;
     private int currentEffect = 0;
     private int currentFilter = 0;
 
@@ -222,8 +222,8 @@ public class CameraDeepArView implements PlatformView,
                 @SuppressWarnings({"unchecked"})
                 Map<String, Object> params = (Map<String, Object>) methodCall.arguments;
                 Object mask = params.get("mask");
-                currentMask = Integer.parseInt(String.valueOf(mask));
-                deepAR.switchEffect("mask", getFilterPath(masks.get(currentMask)));
+                currentMask = String.valueOf(mask);
+                deepAR.switchEffect("mask", getFilterPath(currentMask));
             }
             result.success("Mask Changed");
         } else if ("changeEffect".equals(methodCall.method)) {
@@ -278,6 +278,8 @@ public class CameraDeepArView implements PlatformView,
 
         filters = new ArrayList<>();
         filters.add("none");
+
+        currentMask = masks.get(0);
     }
 
     private int getScreenOrientation() {

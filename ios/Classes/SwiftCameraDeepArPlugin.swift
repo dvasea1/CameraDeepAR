@@ -163,10 +163,10 @@ public class DeepArCameraView : NSObject,FlutterPlatformView,DeepARDelegate{
             }
             else if call.method == "changeMask" {
                 if let dict = call.arguments as? [String: Any] {
-                    if let mask = (dict["mask"] as? Int) {
+                    if let mask = (dict["mask"] as? String) {
                         //let index = Int(mask) ?? 0
                         self.currentMode = .masks
-                        self.switchMode(self.maskPaths[mask])
+                        self.switchMode(mask.path)
                     }
                 }
                 result("Mask  Changed")

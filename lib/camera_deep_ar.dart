@@ -254,16 +254,16 @@ class CameraDeepArController {
     });
   }
 
-  Future changeMask(int p) async {
-    int sendNative = p;
-    if (_cameraDeepArState.supportedEffects.isNotEmpty) {
+  Future changeMask(String mask) async {
+   // int sendNative = p;
+    /*if (_cameraDeepArState.supportedEffects.isNotEmpty) {
       Masks e = _cameraDeepArState.supportedMasks[p];
       sendNative = Masks.values.indexOf(e);
     }
-    if (p > Masks.values.length - 1) p = 0;
-
+    if (p > Masks.values.length - 1) p = 0;*/
+    print('change mask: $mask');
     return channel.invokeMethod('changeMask', <String, dynamic>{
-      'mask': sendNative,
+      'mask': mask,
     });
   }
 

@@ -159,7 +159,7 @@ class _MyAppState extends State<MyApp> {
                           return GestureDetector(
                             onTap: () {
                               currentPage = p;
-                              cameraDeepArController.changeMask(p);
+                              cameraDeepArController.changeMask(Masks.values[p].toString().substring(Masks.values[p].toString().lastIndexOf('.')+1));
                               setState(() {});
                             },
                             child: Container(
