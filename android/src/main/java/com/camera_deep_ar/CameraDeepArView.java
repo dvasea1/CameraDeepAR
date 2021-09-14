@@ -8,11 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.Image;
 import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateFormat;
@@ -33,6 +35,7 @@ import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -411,22 +414,32 @@ public class CameraDeepArView implements PlatformView,
         if (filterName.equals("none")) {
             return null;
         }
-        File file = null;
+
         try {
-            file = new File(new URI(("file:///android_asset/" + filterName)));
-        } catch (URISyntaxException e) {
+            if ( exists(activity.getAssets(),"",filterName))
+                return "file:///android_asset/" + filterName;
+            else {
+                String path = activity.getDataDir().getAbsolutePath() + "/app_flutter/"
+                        + filterName;
+                Log.d("LocalPath",path);
+                return path;
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        if (file !=null && file.exists())
-            return "file:///android_asset/" + filterName;
-        else {
-            String path = activity.getDataDir().getAbsolutePath() + "/app_flutter/"
-                    + filterName;
-            Log.d("LocalPath",path);
-            return path;
-        }
+        String path = activity.getDataDir().getAbsolutePath() + "/app_flutter/"
+                + filterName;
+        Log.d("LocalPath",path);
+        return path;
     }
-
+    public  boolean exists(AssetManager assetManager,
+                           String directory, String fileName) throws IOException {
+        final String[] assets = assetManager.list(directory);
+        for (String asset : assets)
+            if (asset.equals(fileName))
+                return true;
+        return false;
+    }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
