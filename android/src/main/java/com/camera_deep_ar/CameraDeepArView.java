@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.Image;
 import android.media.MediaScannerConnection;
+import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
@@ -26,11 +27,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,7 +54,7 @@ import io.flutter.plugin.platform.PlatformView;
 public class CameraDeepArView implements PlatformView,
         SurfaceHolder.Callback, AREventListener,
         MethodChannel.MethodCallHandler,
-        PluginRegistry.RequestPermissionsResultListener{
+        PluginRegistry.RequestPermissionsResultListener {
 
     private final Activity activity;
     private final Context context;
@@ -59,7 +63,7 @@ public class CameraDeepArView implements PlatformView,
     private boolean disposed = false;
     private float mDist;
     private SurfaceView imgSurface;
-    private  String androidLicenceKey;
+    private String androidLicenceKey;
 
 
     private CameraGrabber cameraGrabber;
@@ -80,9 +84,9 @@ public class CameraDeepArView implements PlatformView,
     private int cameraDevice = defaultCameraDevice;
     private DeepAR deepAR;
 
-    private int currentMask=0;
-    private int currentEffect=0;
-    private int currentFilter=0;
+    private int currentMask = 0;
+    private int currentEffect = 0;
+    private int currentFilter = 0;
 
     private int screenOrientation;
 
@@ -95,15 +99,15 @@ public class CameraDeepArView implements PlatformView,
 
 
     public CameraDeepArView(Activity mActivity, BinaryMessenger mBinaryMessenger, Context mContext, int id, Object args) {
-        this.activity=mActivity;
-        this.context=mContext;
-       //view = View.inflate(context,R.layout.activity_camera, null);
+        this.activity = mActivity;
+        this.context = mContext;
+        //view = View.inflate(context,R.layout.activity_camera, null);
         view = activity.getLayoutInflater().inflate(R.layout.activity_camera, null);
 
         methodChannel =
                 new MethodChannel(mBinaryMessenger, "plugins.flutter.io/deep_ar_camera/" + id);
 
-         imgSurface = view.findViewById(R.id.surface);
+        imgSurface = view.findViewById(R.id.surface);
         imgSurface.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,11 +129,12 @@ public class CameraDeepArView implements PlatformView,
             Object cameraEffect = params.get("cameraEffect");
             Object direction = params.get("direction");
             Object cameraMode = params.get("cameraMode");
-            if(null!=licenceKey)androidLicenceKey=licenceKey.toString();
-            if(null!=cameraEffect)activeFilterType=Integer.parseInt(String.valueOf(cameraEffect));
-            if(null!=direction){
-               int index=Integer.parseInt(String.valueOf(direction));
-                defaultCameraDevice = index==0?Camera.CameraInfo.CAMERA_FACING_BACK:Camera.CameraInfo.CAMERA_FACING_FRONT;
+            if (null != licenceKey) androidLicenceKey = licenceKey.toString();
+            if (null != cameraEffect)
+                activeFilterType = Integer.parseInt(String.valueOf(cameraEffect));
+            if (null != direction) {
+                int index = Integer.parseInt(String.valueOf(direction));
+                defaultCameraDevice = index == 0 ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT;
                 cameraDevice = defaultCameraDevice;
             }
            /* if(null!=cameraMode){
@@ -137,18 +142,18 @@ public class CameraDeepArView implements PlatformView,
                 defaultCameraDevice = index==0?Camera.CameraInfo.CAMERA_FACING_FRONT:Camera.CameraInfo.CAMERA_FACING_FRONT;
                 cameraDevice = defaultCameraDevice;
             }*/
-  }
+        }
 
         methodChannel.setMethodCallHandler(this);
 //        activity.addRequestPermissionsResultListener(this);
         checkPermissions();
     }
 
-    private  void checkPermissions(){
+    private void checkPermissions() {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{ Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO },
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO},
                     1);
         } else {
             // Permission has already been granted
@@ -157,11 +162,11 @@ public class CameraDeepArView implements PlatformView,
         }
     }
 
-   private void initializeDeepAR(){
-       deepAR = new DeepAR(activity);
-       deepAR.setLicenseKey(androidLicenceKey);
-       deepAR.initialize(activity, this);
-       initializeFilters();
+    private void initializeDeepAR() {
+        deepAR = new DeepAR(activity);
+        deepAR.setLicenseKey(androidLicenceKey);
+        deepAR.initialize(activity, this);
+        initializeFilters();
     }
 
     @Override
@@ -172,92 +177,82 @@ public class CameraDeepArView implements PlatformView,
 
         if ("isCameraReady".equals(methodCall.method)) {
             Map<String, Object> argument = new HashMap<>();
-            argument.put("isReady",true);
-            methodChannel.invokeMethod("onCameraReady",argument);
+            argument.put("isReady", true);
+            methodChannel.invokeMethod("onCameraReady", argument);
             result.success("Android is ready");
-        }
-        else  if ("setCameraMode".equals(methodCall.method)) {
+        } else if ("setCameraMode".equals(methodCall.method)) {
             if (methodCall.arguments instanceof HashMap) {
                 @SuppressWarnings({"unchecked"})
                 Map<String, Object> params = (Map<String, Object>) methodCall.arguments;
                 Object direction = params.get("cameraMode");
-                if(null!=direction) activeFilterType = Integer.parseInt(String.valueOf(direction));
+                if (null != direction)
+                    activeFilterType = Integer.parseInt(String.valueOf(direction));
             }
             result.success("Mask Changed");
-        }
-        else  if ("switchCameraDirection".equals(methodCall.method)) {
+        } else if ("switchCameraDirection".equals(methodCall.method)) {
             if (methodCall.arguments instanceof HashMap) {
                 @SuppressWarnings({"unchecked"})
                 Map<String, Object> params = (Map<String, Object>) methodCall.arguments;
                 Object direction = params.get("direction");
-                if(null!=direction){
-                    int index=Integer.parseInt(String.valueOf(direction));
-                    defaultCameraDevice = index==0?Camera.CameraInfo.CAMERA_FACING_BACK:Camera.CameraInfo.CAMERA_FACING_FRONT;
+                if (null != direction) {
+                    int index = Integer.parseInt(String.valueOf(direction));
+                    defaultCameraDevice = index == 0 ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT;
                     cameraDevice = defaultCameraDevice;
                     cameraGrabber.changeCameraDevice(cameraDevice);
                 }
-                 }
+            }
             result.success("Mask Changed");
-        }
-
-        else  if ("zoomTo".equals(methodCall.method)) {
+        } else if ("zoomTo".equals(methodCall.method)) {
             if (methodCall.arguments instanceof HashMap) {
                 @SuppressWarnings({"unchecked"})
                 Map<String, Object> params = (Map<String, Object>) methodCall.arguments;
                 Object index = params.get("zoom");
-                int zoom=Integer.parseInt(String.valueOf(index));
+                int zoom = Integer.parseInt(String.valueOf(index));
                 Camera.Parameters camParams = cameraGrabber.getCamera().getParameters();
                 cameraGrabber.getCamera().cancelAutoFocus();
                 camParams.setZoom(zoom);
                 cameraGrabber.getCamera().setParameters(camParams);
-                 }
+            }
             result.success("ZoomTo Changed");
-        }
-
-        else  if ("changeMask".equals(methodCall.method)) {
+        } else if ("changeMask".equals(methodCall.method)) {
             if (methodCall.arguments instanceof HashMap) {
                 @SuppressWarnings({"unchecked"})
                 Map<String, Object> params = (Map<String, Object>) methodCall.arguments;
                 Object mask = params.get("mask");
-                currentMask=Integer.parseInt(String.valueOf(mask));
+                currentMask = Integer.parseInt(String.valueOf(mask));
                 deepAR.switchEffect("mask", getFilterPath(masks.get(currentMask)));
             }
             result.success("Mask Changed");
-        }else  if ("changeEffect".equals(methodCall.method)) {
+        } else if ("changeEffect".equals(methodCall.method)) {
             if (methodCall.arguments instanceof HashMap) {
                 @SuppressWarnings({"unchecked"})
                 Map<String, Object> params = (Map<String, Object>) methodCall.arguments;
                 Object effect = params.get("effect");
-                currentEffect=Integer.parseInt(String.valueOf(effect));
+                currentEffect = Integer.parseInt(String.valueOf(effect));
                 deepAR.switchEffect("effect", getFilterPath(effects.get(currentEffect)));
             }
             result.success("Effect Changed");
-        }
-        else  if ("changeFilter".equals(methodCall.method)) {
+        } else if ("changeFilter".equals(methodCall.method)) {
             if (methodCall.arguments instanceof HashMap) {
                 @SuppressWarnings({"unchecked"})
                 Map<String, Object> params = (Map<String, Object>) methodCall.arguments;
                 Object filter = params.get("filter");
-                currentFilter=Integer.parseInt(String.valueOf(filter));
+                currentFilter = Integer.parseInt(String.valueOf(filter));
                 deepAR.switchEffect("filter", getFilterPath(filters.get(currentFilter)));
             }
             result.success("Filter Changed");
-        }
-        else  if ("startVideoRecording".equals(methodCall.method)) {
+        } else if ("startVideoRecording".equals(methodCall.method)) {
             CharSequence now = DateFormat.format("yyyy_MM_dd_hh_mm_ss", new Date());
-             videoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES) + "/DeepAR_" + now + ".mp4");
+            videoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES) + "/DeepAR_" + now + ".mp4");
             deepAR.startVideoRecording(videoFile.getPath());
             result.success("Video Recording Started");
-        }
-        else  if ("stopVideoRecording".equals(methodCall.method)) {
-              deepAR.stopVideoRecording();
+        } else if ("stopVideoRecording".equals(methodCall.method)) {
+            deepAR.stopVideoRecording();
             result.success("Video Recording Stopped");
-        }
-        else  if ("snapPhoto".equals(methodCall.method)) {
-              deepAR.takeScreenshot();
+        } else if ("snapPhoto".equals(methodCall.method)) {
+            deepAR.takeScreenshot();
             result.success("Photo Snapped");
-        }
-        else  if ("dispose".equals(methodCall.method)) {
+        } else if ("dispose".equals(methodCall.method)) {
             disposed = true;
             methodChannel.setMethodCallHandler(null);
             deepAR.setAREventListener(null);
@@ -271,39 +266,15 @@ public class CameraDeepArView implements PlatformView,
     private void initializeFilters() {
         masks = new ArrayList<>();
         masks.add("none");
-        masks.add("aviators");
-        masks.add("bigmouth");
-        masks.add("dalmatian");
-        masks.add("flowers");
-        masks.add("koala");
-        masks.add("lion");
-        masks.add("smallface");
-        masks.add("teddycigar");
-        masks.add("kanye");
-        masks.add("tripleface");
-        masks.add("sleepingmask");
-        masks.add("fatify");
-        masks.add("obama");
-        masks.add("mudmask");
-        masks.add("pug");
-        masks.add("slash");
-        masks.add("twistedface");
-        masks.add("grumpycat");
+        masks.add("glasses");
+        masks.add("devil_neon_horns");
+
 
         effects = new ArrayList<>();
         effects.add("none");
-        effects.add("fire");
-        effects.add("rain");
-        effects.add("heart");
-        effects.add("blizzard");
 
         filters = new ArrayList<>();
         filters.add("none");
-        filters.add("filmcolorperfection");
-        filters.add("tv80");
-        filters.add("drawingmanga");
-        filters.add("sepia");
-        filters.add("bleachbypass");
     }
 
     private int getScreenOrientation() {
@@ -318,7 +289,7 @@ public class CameraDeepArView implements PlatformView,
                 || rotation == Surface.ROTATION_180) && height > width ||
                 (rotation == Surface.ROTATION_90
                         || rotation == Surface.ROTATION_270) && width > height) {
-            switch(rotation) {
+            switch (rotation) {
                 case Surface.ROTATION_0:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                     break;
@@ -341,7 +312,7 @@ public class CameraDeepArView implements PlatformView,
         // if the device's natural orientation is landscape or if the device
         // is square:
         else {
-            switch(rotation) {
+            switch (rotation) {
                 case Surface.ROTATION_0:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                     break;
@@ -408,7 +379,7 @@ public class CameraDeepArView implements PlatformView,
                 dialog.show();
             }
         });
-         imgSurface.setOnTouchListener(new View.OnTouchListener() {
+        imgSurface.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // Get the pointer ID
@@ -434,12 +405,26 @@ public class CameraDeepArView implements PlatformView,
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private String getFilterPath(String filterName)  {
 
-    private String getFilterPath(String filterName) {
         if (filterName.equals("none")) {
             return null;
         }
-        return "file:///android_asset/" + filterName;
+        File file = null;
+        try {
+            file = new File(new URI(("file:///android_asset/" + filterName)));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        if (file !=null && file.exists())
+            return "file:///android_asset/" + filterName;
+        else {
+            String path = activity.getDataDir().getAbsolutePath() + "/app_flutter/"
+                    + filterName;
+            Log.d("LocalPath",path);
+            return path;
+        }
     }
 
 
@@ -493,8 +478,8 @@ public class CameraDeepArView implements PlatformView,
             MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, null);
             //Toast.makeText(context, "Screenshot saved", Toast.LENGTH_SHORT).show();
             Map<String, Object> argument = new HashMap<>();
-            argument.put("path",imageFile.toString());
-            methodChannel.invokeMethod("onSnapPhotoCompleted",argument);
+            argument.put("path", imageFile.toString());
+            methodChannel.invokeMethod("onSnapPhotoCompleted", argument);
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -509,8 +494,8 @@ public class CameraDeepArView implements PlatformView,
     public void videoRecordingFinished() {
 //deepAR.stopVideoRecording();
         Map<String, Object> argument = new HashMap<>();
-        argument.put("path",videoFile.toString());
-        methodChannel.invokeMethod("onVideoRecordingComplete",argument);
+        argument.put("path", videoFile.toString());
+        methodChannel.invokeMethod("onVideoRecordingComplete", argument);
     }
 
     @Override
@@ -678,7 +663,7 @@ public class CameraDeepArView implements PlatformView,
 
 
     @Override
-    public boolean onRequestPermissionsResult(int requestCode,  String[] permissions, int[] grantResults) {
+    public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 1 && grantResults.length > 0) {
             for (int grantResult : grantResults) {
                 if (grantResult != PackageManager.PERMISSION_GRANTED) {
@@ -689,7 +674,6 @@ public class CameraDeepArView implements PlatformView,
         }
         return false;
     }
-
 
 
 }

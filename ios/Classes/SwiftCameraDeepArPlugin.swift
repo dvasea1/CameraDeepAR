@@ -30,43 +30,18 @@ enum RecordingMode : String, CaseIterable {
 
 enum Masks: String, CaseIterable {
     case none
-    case aviators
-    case bigmouth
-    case dalmatian
-    case bcgSeg
-    case look2
-    case fatify
-    case flowers
-    case grumpycat
-    case koala
-    case lion
-    case mudMask
-    case obama
-    case pug
-    case slash
-    case sleepingmask
-    case smallface
-    case teddycigar
-    case tripleface
-    case twistedFace
+    case glasses
+    case devil_neon_horns
 }
 
 enum Effects: String, CaseIterable {
     case none
-    case fire
-    case heart
-    case blizzard
-    case rain
+   
 }
 
 enum Filters: String, CaseIterable {
     case none
-    case tv80
-    case drawingmanga
-    case sepia
-    case bleachbypass
-    case realvhs
-    case filmcolorperfection
+   
 }
 
 //Factory view for camera ar
@@ -533,11 +508,20 @@ public class DeepArCameraView : NSObject,FlutterPlatformView,DeepARDelegate{
 
 extension String {
     var path: String? {
-        let filePath = Bundle.main.resourcePath!+"/Frameworks/camera_deep_ar.framework/\(self)"
+        var filePath = Bundle.main.resourcePath!+"/Frameworks/camera_deep_ar.framework/\(self)"
+       
         
         print("Path-find \(self) >>>> \(String(describing: filePath)) >>> ")
+       
+        
+        if(FileManager.default.fileExists(atPath: filePath)){
+         return filePath
+        }
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+       
+        filePath = "\(documentsPath)/\(self)"
+        print("documentsPath \(filePath) >>>> ")
         return filePath
-        //return Bundle.main.path(forResource: self, ofType: nil)
     }
 }
 

@@ -17,43 +17,16 @@ enum CameraDirection { back, front }
 
 enum Masks {
   none,
-  aviators,
-  bigmouth,
-  dalmatian,
-  bcgSeg,
-  look2,
-  fatify,
-  flowers,
-  grumpycat,
-  koala,
-  lion,
-  mudMask,
-  obama,
-  pug,
-  slash,
-  sleepingmask,
-  smallface,
-  teddycigar,
-  tripleface,
-  twistedFace,
+  glasses,
+  devil_neon_horns,
 }
 
 enum Effects {
   none,
-  fire,
-  heart,
-  blizzard,
-  rain,
 }
 
 enum Filters {
   none,
-  tv80,
-  drawingmanga,
-  sepia,
-  bleachbypass,
-  realvhs,
-  filmcolorperfection,
 }
 
 class CameraDeepAr extends StatefulWidget {
@@ -81,37 +54,10 @@ class CameraDeepAr extends StatefulWidget {
       this.cameraDirection = CameraDirection.front,
       this.recordingMode = RecordingMode.video,
       this.supportedFilters = const [
-        Filters.sepia,
-        Filters.bleachbypass,
       ],
-      this.supportedMasks = const [
-        Masks.none,
-        Masks.aviators,
-        Masks.bigmouth,
-        Masks.dalmatian,
-        Masks.bcgSeg,
-        Masks.look2,
-        Masks.fatify,
-        Masks.flowers,
-        Masks.grumpycat,
-        Masks.koala,
-        Masks.lion,
-        Masks.mudMask,
-        Masks.obama,
-        Masks.pug,
-        Masks.slash,
-        Masks.sleepingmask,
-        Masks.smallface,
-        Masks.teddycigar,
-        Masks.tripleface,
-        Masks.twistedFace,
-      ],
+      this.supportedMasks = Masks.values,
       this.supportedEffects = const [
         Effects.none,
-        Effects.fire,
-        Effects.heart,
-        Effects.blizzard,
-        Effects.rain,
       ]})
       : super(key: key);
 

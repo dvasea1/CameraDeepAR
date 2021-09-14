@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:camera_deep_ar/camera_deep_ar.dart';
 import 'package:flutter/material.dart';
+import 'package:flowder/flowder.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,8 +25,36 @@ class _MyAppState extends State<MyApp> {
   bool isRecording = false;
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
+
+    download();
+  }
+
+  download() async {
+    var string =
+        'https://parentsapp.b-cdn.net/96ed859d-e151-4beb-9970-a08f39f85c00';
+
+    var path = await getPath();
+    if (path != null) {
+      print('path is : ${path}');
+      final downloaderUtils = DownloaderUtils(
+        progressCallback: (current, total) {
+          final progress = (current / total) * 100;
+          print('Downloading: $progress');
+        },
+        file: File('$path/neon_wires'),
+        progress: ProgressImplementation(),
+        onDone: () => print('Download done: $path/neon_wires'),
+        deleteOnCancel: true,
+      );
+      DownloaderCore core = await Flowder.download(string, downloaderUtils);
+    }
+  }
+
+  Future<String>? getPath() async {
+    var  directory =getApplicationDocumentsDirectory();
+    return (await directory).path;
   }
 
   @override
@@ -49,13 +81,11 @@ class _MyAppState extends State<MyApp> {
                   isRecording = false;
                   setState(() {});
                 },
-                androidLicenceKey:
-                    "3b58c448bd650192e7c53d965cfe5dc1c341d2568b663a3962b7517c4ac6eeed0ba1fb2afe491a4b",
-                iosLicenceKey:
-                    "53618212114fc16bbd7499c0c04c2ca11a4eed188dc20ed62a7f7eec02b41cb34d638e72945a6bf6",
+                androidLicenceKey: "3b58c448bd650192e7c53d965cfe5dc1c341d2568b663a3962b7517c4ac6eeed0ba1fb2afe491a4b",
+                iosLicenceKey: "53618212114fc16bbd7499c0c04c2ca11a4eed188dc20ed62a7f7eec02b41cb34d638e72945a6bf6",
                 cameraDeepArCallback: (c) async {
                   cameraDeepArController = c;
-                 // cameraDeepArController.setCameraMode(camMode: CameraMode.effects);
+                  // cameraDeepArController.setCameraMode(camMode: CameraMode.effects);
 
                   setState(() {});
                 }),
@@ -138,16 +168,12 @@ class _MyAppState extends State<MyApp> {
                                 width: active ? 100 : 80,
                                 height: active ? 100 : 80,
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color:
-                                        active ? Colors.orange : Colors.white,
-                                    shape: BoxShape.circle),
+                                decoration:
+                                    BoxDecoration(color: active ? Colors.orange : Colors.white, shape: BoxShape.circle),
                                 child: Text(
                                   "$p",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: active ? 16 : 14,
-                                      color: Colors.black),
+                                  style: TextStyle(fontSize: active ? 16 : 14, color: Colors.black),
                                 )),
                           );
                         }),
