@@ -9,6 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fce1fb28-a1e1-4aae-8d4d-dbf5bbf22375" name="Default Changelist" comment="Add ReadMe Mod documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/camera_deep_ar/CameraDeepArView.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/camera_deep_ar/CameraDeepArView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +24,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/example/ios/Pods/Pods.xcodeproj/project.pbxproj" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/models.bin" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/example/ios/.symlinks/plugins/path_provider/example/macos/Runner.xcodeproj/project.pbxproj" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/ios/Classes/SwiftCameraDeepArPlugin.swift" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/Info.plist" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.h" root0="SKIP_INSPECTION" />

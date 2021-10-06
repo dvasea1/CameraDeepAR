@@ -472,14 +472,12 @@ public class CameraDeepArView implements PlatformView,
 
     @Override
     public void dispose() {
-        if (disposed) {
-            return;
-        }
-        disposed = true;
+        cameraGrabber.releaseCamera();
         methodChannel.setMethodCallHandler(null);
         deepAR.setAREventListener(null);
         deepAR.release();
         deepAR = null;
+        disposed = true;
 
     }
 
