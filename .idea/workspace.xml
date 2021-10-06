@@ -9,15 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fce1fb28-a1e1-4aae-8d4d-dbf5bbf22375" name="Default Changelist" comment="Add ReadMe Mod documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/camera_deep_ar/CameraDeepArView.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/camera_deep_ar/CameraDeepArView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/android/src/main/java/com/camera_deep_ar/CameraDeepArView.java" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/android/src/main/java/com/camera_deep_ar/CameraDeepArView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/lib/camera_deep_ar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/camera_deep_ar/lib/camera_deep_ar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftCameraDeepArPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftCameraDeepArPlugin.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/camera_deep_ar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/camera_deep_ar.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +19,16 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/vasilebarbaros/.android/avd/Pixel_3a_API_30_x86.avd]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/example/ios/Pods/Pods.xcodeproj/project.pbxproj" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/models.bin" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/example/ios/.symlinks/plugins/path_provider/example/macos/Runner.xcodeproj/project.pbxproj" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/SwiftCameraDeepArPlugin.swift" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/Info.plist" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.h" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/lib/camera_deep_ar.dart" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.m" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectId" id="1hlk9siz6EiuHImu224NYAA638Y" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -41,7 +43,7 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/android/src/main/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/android" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -49,11 +51,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/android" />
       <recent name="$PROJECT_DIR$/android/src/main/assets" />
       <recent name="$PROJECT_DIR$/ios/Effects" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/example/android/app" />
-      <recent name="$PROJECT_DIR$/android/src/main" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
