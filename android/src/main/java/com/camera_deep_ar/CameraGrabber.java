@@ -284,6 +284,7 @@ public class CameraGrabber
             params.setPictureFormat(PixelFormat.JPEG);
             params.setJpegQuality(90);
             params.setPreviewFormat(ImageFormat.NV21);
+            params.setFocusMode(Parameters.FOCUS_MODE_AUTO);
 
             /*
             List<int[]> ranges = params.getSupportedPreviewFpsRange();
