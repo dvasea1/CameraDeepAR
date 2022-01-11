@@ -261,30 +261,31 @@ public class CameraGrabber
                 return;
             }
 
-            Camera.Parameters params = camera.getParameters();
+            if(camera != null ){
+                Camera.Parameters params = camera.getParameters();
 
 
-            boolean presetExists = false;
-            List<Camera.Size> availableSizes = camera.getParameters().getSupportedPictureSizes();
-            for (Camera.Size size : availableSizes) {
-                if (size.width == width && size.height == height) {
-                    presetExists = true;
-                    break;
+                boolean presetExists = false;
+                List<Camera.Size> availableSizes = camera.getParameters().getSupportedPictureSizes();
+                for (Camera.Size size : availableSizes) {
+                    if (size.width == width && size.height == height) {
+                        presetExists = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!presetExists) {
-                Log.e(TAG, "Selected resolution preset is not available on this device");
-                listener.onCameraError("Selected preset resolution of " + width + "x" + height + " is not supported for this device.");
-                return;
-            }
+                if (!presetExists) {
+                    Log.e(TAG, "Selected resolution preset is not available on this device");
+                    listener.onCameraError("Selected preset resolution of " + width + "x" + height + " is not supported for this device.");
+                    return;
+                }
 
-            params.setPreviewSize(width, height);
-            params.setPictureSize(width, height);
-            params.setPictureFormat(PixelFormat.JPEG);
-            params.setJpegQuality(90);
-            params.setPreviewFormat(ImageFormat.NV21);
-            params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+                params.setPreviewSize(width, height);
+                params.setPictureSize(width, height);
+                params.setPictureFormat(PixelFormat.JPEG);
+                params.setJpegQuality(90);
+                params.setPreviewFormat(ImageFormat.NV21);
+                params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
 
             /*
             List<int[]> ranges = params.getSupportedPreviewFpsRange();
@@ -299,7 +300,10 @@ public class CameraGrabber
             params.setPreviewFpsRange(bestRange[0], bestRange[1]);
             */
 
-            camera.setParameters(params);
+                camera.setParameters(params);
+            }
+
+
 
 
             buffers = new ByteBuffer[NUMBER_OF_BUFFERS];

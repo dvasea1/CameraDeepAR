@@ -17,18 +17,17 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/vasilebarbaros/.android/avd/Pixel_3a_API_30_x86.avd]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/example/ios/Pods/Pods.xcodeproj/project.pbxproj" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/models.bin" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/ios/Classes/SwiftCameraDeepArPlugin.swift" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/Info.plist" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.h" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/lib/camera_deep_ar.dart" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/Info.plist" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/SwiftCameraDeepArPlugin.swift" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.m" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.h" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/example/ios/Pods/Pods.xcodeproj/project.pbxproj" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectId" id="1hlk9siz6EiuHImu224NYAA638Y" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -43,7 +42,7 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/android" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
