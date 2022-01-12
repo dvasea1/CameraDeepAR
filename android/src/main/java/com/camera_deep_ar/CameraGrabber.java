@@ -300,7 +300,9 @@ public class CameraGrabber
             params.setPreviewFpsRange(bestRange[0], bestRange[1]);
             */
 
-                camera.setParameters(params);
+                try {
+                    camera.setParameters(params);
+                }catch (Exception e) {}
             }
 
 
