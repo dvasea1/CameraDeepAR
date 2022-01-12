@@ -285,7 +285,7 @@ public class CameraGrabber
                 params.setPictureFormat(PixelFormat.JPEG);
                 params.setJpegQuality(90);
                 params.setPreviewFormat(ImageFormat.NV21);
-                params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+               if(support_focus(camera)){ params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);}
 
             /*
             List<int[]> ranges = params.getSupportedPreviewFpsRange();
@@ -333,6 +333,15 @@ public class CameraGrabber
             if (listener != null) {
                 listener.onCameraInitialized();
             }
+        }
+
+        public boolean support_focus(Camera camera){
+            Camera.Parameters parameters = camera.getParameters();
+            List<String> focusModes = parameters.getSupportedFocusModes();
+            if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO))
+                return true;
+            else
+                return false;
         }
 
         void reinitCamera(final int newWidth, final int newHeight) {
