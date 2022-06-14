@@ -29,7 +29,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 23
     }
 
     sourceSets {
