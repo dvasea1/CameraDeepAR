@@ -249,6 +249,10 @@ public class CameraDeepArView implements PlatformView,
             CharSequence now = DateFormat.format("yyyy_MM_dd_hh_mm_ss", new Date());
             videoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES) + "/DeepAR_video"  + ".mp4");
             Log.d("videoFile",videoFile.getPath());
+
+            videoFile = File.createTempFile("deepar_", ".mp4");
+
+
             deepAR.startVideoRecording(videoFile.getPath());
             result.success(videoFile.getPath());
         } else if ("stopVideoRecording".equals(methodCall.method)) {

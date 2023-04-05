@@ -8,7 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fce1fb28-a1e1-4aae-8d4d-dbf5bbf22375" name="Default Changelist" comment="Add ReadMe Mod documentation">
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/camera_deep_ar/CameraGrabber.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/camera_deep_ar/CameraGrabber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/camera_deep_ar/CameraDeepArView.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/camera_deep_ar/CameraDeepArView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,13 +19,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/models.bin" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/lib/camera_deep_ar.dart" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/Info.plist" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/ios/Classes/SwiftCameraDeepArPlugin.swift" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.m" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.h" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/example/ios/Pods/Pods.xcodeproj/project.pbxproj" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/CameraDeepArPlugin.m" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/Info.plist" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/example/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/camera_deep_ar.dart" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ios/DeepAR.framework/models.bin" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/README.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1hlk9siz6EiuHImu224NYAA638Y" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -122,7 +124,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add zoom capability on android only...." />
