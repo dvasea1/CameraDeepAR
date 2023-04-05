@@ -250,7 +250,7 @@ public class CameraDeepArView implements PlatformView,
             videoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES) + "/DeepAR_video"  + ".mp4");
             Log.d("videoFile",videoFile.getPath());
             deepAR.startVideoRecording(videoFile.getPath());
-            result.success("Video Recording Started");
+            result.success(videoFile.getPath());
         } else if ("stopVideoRecording".equals(methodCall.method)) {
             deepAR.stopVideoRecording();
             result.success("Video Recording Stopped");
