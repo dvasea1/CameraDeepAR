@@ -247,6 +247,7 @@ public class CameraDeepArView implements PlatformView,
             result.success("Filter Changed");
         } else if ("startVideoRecording".equals(methodCall.method)) {
             CharSequence now = DateFormat.format("yyyy_MM_dd_hh_mm_ss", new Date());
+          try{
             videoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES) + "/DeepAR_video"  + ".mp4");
             Log.d("videoFile",videoFile.getPath());
 
@@ -255,6 +256,10 @@ public class CameraDeepArView implements PlatformView,
 
             deepAR.startVideoRecording(videoFile.getPath());
             result.success(videoFile.getPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+           
+        }
         } else if ("stopVideoRecording".equals(methodCall.method)) {
             deepAR.stopVideoRecording();
             result.success("Video Recording Stopped");
